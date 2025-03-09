@@ -12,7 +12,7 @@ from tensorflow.keras.callbacks import LearningRateScheduler, ReduceLROnPlateau,
 DATASET_DIR = './dataset'
 IMAGE_SIZE = [300, 300]
 BATCH_SIZE = 16
-MODEL_NAME = 'B0'
+MODEL_NAME = 'B3'
 EPOCHS = 20
 checkpoint_filepath = None # './checkpoints/efficientnetb3_SSD.h5'
 base_lr = 1e-3 if checkpoint_filepath is None else 1e-5
