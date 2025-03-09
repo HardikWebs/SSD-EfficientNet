@@ -17,6 +17,7 @@ MODEL_NAME = 'B3'
 checkpoint_filepath = './checkpoints/efficientnetb3_SSD.h5'
 INPUT_DIR = './inputs'
 OUTPUT_DIR = './outputs'
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 iou_threshold = 0.5
 center_variance = 0.1
