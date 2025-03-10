@@ -13,25 +13,21 @@ DATASET_DIR = './dataset'
 IMAGE_SIZE = [300, 300]
 BATCH_SIZE = 16
 MODEL_NAME = 'B3'
-EPOCHS = 20
-checkpoint_filepath = None # './checkpoints/efficientnetb3_SSD.h5'
+EPOCHS = 100
+checkpoint_filepath = None
 base_lr = 1e-3 if checkpoint_filepath is None else 1e-5
 
-train2012 = tfds.load('voc/2012', data_dir=DATASET_DIR, split='train')
-valid2012 = tfds.load('voc/2012', data_dir=DATASET_DIR, split='validation')
-print("Loading Data..")
-train2007 = tfds.load("voc", data_dir=DATASET_DIR, split='train')
-valid2007 = tfds.load("voc", data_dir=DATASET_DIR, split='validation')
-
-train_data = train2007.concatenate(valid2007).concatenate(train2012).concatenate(valid2012)
+dataset_name = "kitti"
+train_data, info = tfds.load(dataset_name, split="train", with_info=True)
+train_data = train_data.batch(BATCH_SIZE)
 
 number_train = train_data.reduce(0, lambda x, _: x + 1).numpy()
-# number_train = 5011
 print("Number of Training Files:", number_train)
 
-test_data = tfds.load('voc', data_dir=DATASET_DIR, split='test')
+test_data, info = tfds.load(dataset_name, split="test", with_info=True)
+test_data = test_data.batch(BATCH_SIZE)
+
 number_test = test_data.reduce(0, lambda x, _: x + 1).numpy()
-# number_test = 4952
 print("Number of Test Files:", number_test)
 
 iou_threshold = 0.5
